@@ -4,7 +4,7 @@ export function startGame(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const bird: Bird  = {
+    const bird: Bird = {
         x: 50,
         y: canvas.height / 2,
         width: 30,
@@ -13,6 +13,17 @@ export function startGame(canvas: HTMLCanvasElement) {
     };
 
     const gravity = 0.4;
+    const jumpForce = -8;
+
+    const jump = () => {
+        bird.velocity = jumpForce;
+    };
+
+    window.addEventListener("keydown", (event) => {
+        if (event.code === "Space") {
+            jump();
+        }
+    });
 
     const update = () => {
         bird.velocity += gravity;
@@ -23,7 +34,7 @@ export function startGame(canvas: HTMLCanvasElement) {
 
         ctx.fillStyle = "yellow";
         ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
-        
+
         requestAnimationFrame(update);
     }
 
