@@ -1,6 +1,6 @@
 import type { Bird } from "../entities/Bird";
 import type { Pipe } from "../entities/Pipe";
-import { applyGravity, applyJump } from "../systems/Physics";
+import { applyGravity, applyJump, checkCollision } from "../systems/Physics";
 import { createPipe, updatePipes, drawPipes } from "../systems/PipeSystem";
 
 export function startGame(canvas: HTMLCanvasElement) {
@@ -27,7 +27,15 @@ export function startGame(canvas: HTMLCanvasElement) {
         }
     });
 
+    let gameOver = false;
+
     const update = () => {
+        if (gameOver) {
+            ctx.fillStyle = "white";
+            ctx.font = "32px Arial";
+            ctx.fillText("Game Over", 100, canvas.height / 2);
+            return;
+        }
 
         frames++;
 
@@ -44,6 +52,10 @@ export function startGame(canvas: HTMLCanvasElement) {
 
         ctx.fillStyle = "yellow";
         ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+
+        if (checkCollision(bird, pipes, canvas)) {
+            gameOver = true;
+        }
 
         drawPipes(ctx, pipes, canvas);
 
