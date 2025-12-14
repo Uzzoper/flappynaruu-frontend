@@ -1,7 +1,7 @@
 import type { GameState } from "../state/GameState";
 import { updateGame } from "../systems/UpdateGame";
-import { drawPipes } from "../systems/PipeSystem";
 import { applyJump } from "../systems/Physics";
+import { renderGame } from "../systems/RenderSystem";
 
 export function startGame(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d");
@@ -30,27 +30,12 @@ export function startGame(canvas: HTMLCanvasElement) {
     const loop = () => {
         updateGame(state, canvas);
 
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        renderGame(ctx, state, canvas);
 
-        drawPipes(ctx, state.pipes, canvas);
-
-        ctx.fillStyle = "yellow";
-        ctx.fillRect(
-            state.bird.x,
-            state.bird.y,
-            state.bird.width,
-            state.bird.height
-        );
-
-        if (state.isGameOver) {
-            ctx.fillStyle = "white";
-            ctx.font = "32px Arial";
-            ctx.fillText("Game Over", 80, canvas.height / 2);
-            return;
+        if (!state.isGameOver) {
+            requestAnimationFrame(loop);
         }
-        requestAnimationFrame(loop);
-    };
+    }
 
     loop();
 }
