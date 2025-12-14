@@ -12,25 +12,23 @@ export function startGame(canvas: HTMLCanvasElement) {
 
     window.addEventListener("keydown", (event) => {
         if (event.code != "Space") return;
-        
-        if (state.isGameOver) {
+
+        if (state.isGameOver && state.canRestart) {
             state = createInitialState(canvas);
-            loop();
-            return;
         }
 
-            applyJump(state.bird, -8);
+        applyJump(state.bird, -8);
     });
 
     const loop = () => {
-        updateGame(state, canvas);
+        if (!state.isGameOver) {
+            updateGame(state, canvas);
+        }
 
         renderGame(ctx, state, canvas);
 
-        if (!state.isGameOver) {
-            requestAnimationFrame(loop);
-        }
-    }
+        requestAnimationFrame(loop);
+    };
 
     loop();
 }

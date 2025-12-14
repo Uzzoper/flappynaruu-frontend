@@ -18,5 +18,9 @@ export function updateGame(
 
     if (checkCollision(state.bird, state.pipes, canvas)) {
         state.isGameOver = true;
+
+        setTimeout(() => {
+            state.canRestart = true;
+        }, 1000);
     }
 }

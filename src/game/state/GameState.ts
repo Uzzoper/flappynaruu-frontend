@@ -7,4 +7,5 @@ export interface GameState {
     frames: number;
     isGameOver: boolean;
     score: number;
+    canRestart: boolean;
 }

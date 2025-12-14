@@ -21,27 +21,29 @@ export function renderGame(
     );
 
     if (state.isGameOver) {
-        drawGameOver(ctx, canvas);
+        drawGameOver(ctx, canvas, state.canRestart);
     }
 }
 
-    const drawGameOver = (
-        ctx: CanvasRenderingContext2D,
-        canvas: HTMLCanvasElement
-    ) => {
-        ctx.fillStyle = "rgba(0,0,0,0.6)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+const drawGameOver = (
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    canRestart: boolean
+) => {
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "white";
-        ctx.font = "32px Arial";
-        ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.font = "32px Arial";
+    ctx.textAlign = "center";
 
-        ctx.fillText(
-            "Game Over",
-            canvas.width / 2,
-            canvas.height / 2
-        );
+    ctx.fillText(
+        "Game Over",
+        canvas.width / 2,
+        canvas.height / 2
+    );
 
+    if (canRestart) {
         ctx.font = "16px Arial";
         ctx.fillText(
             "Aperte ESPAÇO para jogar novamente",
@@ -49,3 +51,4 @@ export function renderGame(
             canvas.height / 2 + 40
         );
     }
+}

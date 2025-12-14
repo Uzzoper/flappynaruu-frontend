@@ -15,5 +15,6 @@ export function createInitialState(
         frames: 0,
         isGameOver: false,
         score: 0,
+        canRestart: false,
     };
 }
