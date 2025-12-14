@@ -1,6 +1,7 @@
 import type { GameState } from "../state/GameState";
 import { applyGravity, checkCollision } from "./Physics";
 import { createPipe, updatePipes } from "./PipeSystem";
+import { updateScore } from "./ScoreSystem";
 
 export function updateGame(
     state: GameState,
@@ -23,4 +24,7 @@ export function updateGame(
             state.canRestart = true;
         }, 1000);
     }
+
+    const gainedScore = updateScore(state.bird, state.pipes);
+    state.score += gainedScore; 
 }

@@ -20,6 +20,16 @@ export function renderGame(
         state.bird.height
     );
 
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.textAlign = "left";
+
+    ctx.fillText(
+        `Score: ${state.score}`,
+        20,
+        30
+    );
+
     if (state.isGameOver) {
         drawGameOver(ctx, canvas, state.canRestart);
     }

@@ -3,4 +3,5 @@ export interface Pipe {
     width: number;
     gapTop: number;
     gapBottom: number;
+    isPassed: boolean;
 }

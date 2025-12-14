@@ -10,6 +10,7 @@ export function createPipe(canvasHeight: number): Pipe {
         width: 60,
         gapTop: gapPosition,
         gapBottom: gapPosition + gapSize,
+        isPassed: false,
     };
 }
 
