@@ -1,4 +1,5 @@
 import type { GameState } from "../state/GameState";
+import { getDifficulty } from "./DifficultySystem";
 import { applyGravity, checkCollision } from "./Physics";
 import { createPipe, updatePipes } from "./PipeSystem";
 import { updateScore } from "./ScoreSystem";
@@ -11,11 +12,13 @@ export function updateGame(
 
     applyGravity(state.bird, 0.4);
 
+    const difficulty = getDifficulty(state.score);
+
     if (state.frames % 120 === 0) {
-        state.pipes.push(createPipe(canvas.height));
+        state.pipes.push(createPipe(canvas.height, difficulty.gapSize));
     }
 
-    state.pipes = updatePipes(state.pipes);
+    state.pipes = updatePipes(state.pipes, difficulty.pipeSpeed);
 
     if (checkCollision(state.bird, state.pipes, canvas)) {
         state.isGameOver = true;
@@ -25,6 +28,5 @@ export function updateGame(
         }, 1000);
     }
 
-    const gainedScore = updateScore(state.bird, state.pipes);
-    state.score += gainedScore; 
+    state.score += updateScore(state.bird, state.pipes);
 }

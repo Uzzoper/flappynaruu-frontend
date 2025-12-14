@@ -1,9 +1,10 @@
 import type { Pipe } from "../entities/Pipe"
 
-export function createPipe(canvasHeight: number): Pipe {
-    const gapSize = 140;
+export function createPipe(
+    canvasHeight: number,
+    gapSize: number
+): Pipe {
     const gapPosition = Math.random() * (canvasHeight - gapSize - 40) + 20;
-
 
     return {
         x:400,
@@ -14,9 +15,12 @@ export function createPipe(canvasHeight: number): Pipe {
     };
 }
 
-export function updatePipes(pipes: Pipe[]) {
+export function updatePipes(
+    pipes: Pipe[],
+    speed: number
+) {
     for (const pipe of pipes) {
-        pipe.x -= 2;
+        pipe.x -= speed;
     }
 
     return pipes.filter(pipe => pipe.x + pipe.width > 0)
