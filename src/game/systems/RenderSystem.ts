@@ -33,6 +33,14 @@ export function renderGame(
         30
     );
 
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(
+        state.bird.x + state.bird.hitboxOffsetX,
+        state.bird.y + state.bird.hitboxOffsetY,
+        state.bird.hitboxWidth,
+        state.bird.hitboxHeight
+    );
+
     if (state.isGameOver) {
         drawGameOver(ctx, canvas, state.canRestart);
     }

@@ -6,4 +6,8 @@ export interface Bird {
     velocity: number;
     frameIndex: number;
     frameTimer: number;
+    hitboxOffsetX: number;
+    hitboxOffsetY: number;
+    hitboxWidth: number;
+    hitboxHeight: number;
 }
