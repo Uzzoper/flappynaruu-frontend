@@ -5,20 +5,26 @@ export function GameCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (canvasRef.current) {
-      startGame(canvasRef.current)
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+
+    resize();
+    startGame(canvas);
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      width={400}
-      height={600}
       style={{
-        border: "2px solid white",
         display: "block",
-        margin: "0 auto",
         background: "#222",
       }}
     />
