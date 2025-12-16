@@ -1,5 +1,6 @@
 import type { GameState } from "../state/GameState";
 import { drawPipes } from "./PipeSystem";
+import { getBirdSprite, loadBirdSprites } from "./SpriteSystem";
 
 export function renderGame(
     ctx: CanvasRenderingContext2D,
@@ -9,11 +10,13 @@ export function renderGame(
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    loadBirdSprites();
 
     drawPipes(ctx, state.pipes, canvas);
 
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(
+    const birdSprite = getBirdSprite(state.bird.frameIndex);
+    ctx.drawImage(
+        birdSprite,
         state.bird.x,
         state.bird.y,
         state.bird.width,

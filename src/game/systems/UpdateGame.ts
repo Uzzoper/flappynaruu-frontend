@@ -29,4 +29,15 @@ export function updateGame(
     }
 
     state.score += updateScore(state.bird, state.pipes);
+
+    if (state.bird.velocity < 0) {
+        state.bird.frameTimer++;
+
+        if (state.bird.frameTimer >= 8) {
+            state.bird.frameIndex = (state.bird.frameIndex + 1) % 2;
+            state.bird.frameTimer = 0;
+        }
+    } else {
+        state.bird.frameIndex = 0;
+    }
 }

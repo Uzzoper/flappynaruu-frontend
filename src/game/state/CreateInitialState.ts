@@ -7,9 +7,11 @@ export function createInitialState(
         bird: {
             x: 50,
             y: canvas.height / 2,
-            width: 30,
-            height: 30,
+            width: 60,
+            height: 60,
             velocity: 0,
+            frameIndex: 0,
+            frameTimer: 0,
         },
         pipes: [],
         frames: 0,

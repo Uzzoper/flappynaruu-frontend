@@ -4,4 +4,6 @@ export interface Bird {
     width: number;
     height: number;
     velocity: number;
+    frameIndex: number;
+    frameTimer: number;
 }
