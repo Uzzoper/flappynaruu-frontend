@@ -2,12 +2,13 @@ import type { Pipe } from "../entities/Pipe"
 
 export function createPipe(
     canvasHeight: number,
+    canvasWidth: number,
     gapSize: number
 ): Pipe {
     const gapPosition = Math.random() * (canvasHeight - gapSize - 40) + 20;
-
+    
     return {
-        x:400,
+        x: canvasWidth,
         width: 60,
         gapTop: gapPosition,
         gapBottom: gapPosition + gapSize,

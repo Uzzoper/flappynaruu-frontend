@@ -15,7 +15,7 @@ export function updateGame(
     const difficulty = getDifficulty(state.score);
 
     if (state.frames % 120 === 0) {
-        state.pipes.push(createPipe(canvas.height, difficulty.gapSize));
+        state.pipes.push(createPipe(canvas.height, canvas.width, difficulty.gapSize));
     }
 
     state.pipes = updatePipes(state.pipes, difficulty.pipeSpeed);
