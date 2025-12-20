@@ -32,7 +32,7 @@ export function drawPipes(
     pipes: Pipe[],
     canvas: HTMLCanvasElement
 ) {
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "silver";
 
     for (const pipe of pipes) {
         ctx.fillRect(pipe.x, 0, pipe.width, pipe.gapTop);

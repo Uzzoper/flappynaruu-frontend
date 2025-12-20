@@ -1,14 +1,19 @@
 import type { GameState } from "../state/GameState";
 import { drawPipes } from "./PipeSystem";
-import { getBirdSprite, loadBirdSprites } from "./SpriteSystem";
+import { getBirdSprite, loadBirdSprites } from "./BirdSprites";
+import { drawBackground } from "./BackgroundRender";
 
 export function renderGame(
     ctx: CanvasRenderingContext2D,
     state: GameState,
     canvas: HTMLCanvasElement
 ) {
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawBackground(ctx);
+
+    if(!ctx.canvas) {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
 
     loadBirdSprites();
 
