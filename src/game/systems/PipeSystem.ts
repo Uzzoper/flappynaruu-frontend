@@ -6,7 +6,7 @@ export function createPipe(
     gapSize: number
 ): Pipe {
     const gapPosition = Math.random() * (canvasHeight - gapSize - 40) + 20;
-    
+
     return {
         x: canvasWidth,
         width: 60,
@@ -32,9 +32,15 @@ export function drawPipes(
     pipes: Pipe[],
     canvas: HTMLCanvasElement
 ) {
-    ctx.fillStyle = "silver";
-
     for (const pipe of pipes) {
+
+        const gradient = ctx.createLinearGradient(pipe.x, 0, pipe.x + pipe.width, 0);
+        gradient.addColorStop(0, "#1a1a1a");
+        gradient.addColorStop(0.5, "#3a3a3a");
+        gradient.addColorStop(1, "#1a1a1a");
+
+        ctx.fillStyle = gradient;
+
         ctx.fillRect(pipe.x, 0, pipe.width, pipe.gapTop);
 
         ctx.fillRect(
