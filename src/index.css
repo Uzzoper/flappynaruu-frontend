@@ -8,3 +8,7 @@ body {
   overflow: hidden;
   background-color: #000;
 }
+
+canvas {
+    touch-action: none;
+}
