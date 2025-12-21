@@ -10,7 +10,7 @@ export function renderGame(
 ) {
     drawBackground(ctx);
 
-    if(!ctx.canvas) {
+    if (!ctx.canvas) {
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
@@ -32,11 +32,9 @@ export function renderGame(
     ctx.font = "20px Arial";
     ctx.textAlign = "left";
 
-    ctx.fillText(
-        `Score: ${state.score}`,
-        20,
-        30
-    );
+    ctx.fillText(`Score: ${state.score}`, 20, 30);
+    ctx.fillText(`Highscore: ${state.highScore}`, 20, 55);
+
 
     ctx.strokeStyle = "red";
     ctx.strokeRect(

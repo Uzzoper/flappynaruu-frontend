@@ -1,4 +1,5 @@
 import type { GameState } from "./GameState";
+import { loadHighScore } from "./HighScore";
 
 export function createInitialState(
     canvas: HTMLCanvasElement
@@ -22,5 +23,6 @@ export function createInitialState(
         isGameOver: false,
         score: 0,
         canRestart: false,
+        highScore: loadHighScore(),
     };
 }

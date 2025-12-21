@@ -8,4 +8,5 @@ export interface GameState {
     isGameOver: boolean;
     score: number;
     canRestart: boolean;
+    highScore: number;
 }

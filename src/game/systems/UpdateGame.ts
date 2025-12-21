@@ -1,4 +1,5 @@
 import type { GameState } from "../state/GameState";
+import { saveHighScore } from "../state/HighScore";
 import { getDifficulty } from "./DifficultySystem";
 import { applyGravity, checkCollision } from "./Physics";
 import { createPipe, updatePipes } from "./PipeSystem";
@@ -22,6 +23,11 @@ export function updateGame(
 
     if (checkCollision(state.bird, state.pipes, canvas)) {
         state.isGameOver = true;
+
+        if (state.score > state.highScore) {
+            state.highScore = state.score;
+            saveHighScore(state.score);
+        }
 
         setTimeout(() => {
             state.canRestart = true;
