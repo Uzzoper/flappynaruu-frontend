@@ -1,8 +1,9 @@
+import { GRAVITY } from "../config/Constants";
 import type { Bird } from "../entities/Bird";
 import type { Pipe } from "../entities/Pipe";
 
-export function applyGravity(bird: Bird, gravity: number) {
-    bird.velocity += gravity;
+export function applyGravity(bird: Bird) {
+    bird.velocity += GRAVITY;
     bird.y += bird.velocity;
 }
 

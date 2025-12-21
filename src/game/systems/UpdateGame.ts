@@ -11,7 +11,7 @@ export function updateGame(
 ) {
     state.frames++;
 
-    applyGravity(state.bird, 0.4);
+    applyGravity(state.bird);
 
     const difficulty = getDifficulty(state.score);
 
