@@ -1,7 +1,7 @@
 import type { GameState } from "../state/GameState";
 import { drawPipes } from "./PipeSystem";
-import { getBirdSprite, loadBirdSprites } from "./BirdSprites";
 import { drawBackground } from "./BackgroundRender";
+import { getBirdSprite } from "./BirdSprites";
 
 export function renderGame(
     ctx: CanvasRenderingContext2D,
@@ -15,19 +15,19 @@ export function renderGame(
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    loadBirdSprites();
-
     drawPipes(ctx, state.pipes, canvas);
 
     const birdSprite = getBirdSprite(state.bird.frameIndex);
-    ctx.drawImage(
-        birdSprite,
-        state.bird.x,
-        state.bird.y,
-        state.bird.width,
-        state.bird.height
-    );
 
+    if (birdSprite && birdSprite.complete && birdSprite.naturalWidth > 0) {
+        ctx.drawImage(
+            birdSprite,
+            state.bird.x,
+            state.bird.y,
+            state.bird.width,
+            state.bird.height
+        );
+    }
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
     ctx.textAlign = "left";

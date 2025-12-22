@@ -1,4 +1,4 @@
-import bgSrc from "../../assets/background/bg.png";
+import bgSrc from "../../assets/image/background/bg.png";
 
 let backgroundImg: HTMLImageElement | null = null;
 
