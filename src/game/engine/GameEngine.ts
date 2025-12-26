@@ -16,8 +16,9 @@ export function startGame(canvas: HTMLCanvasElement) {
     loadGameOverSound();
 
     let state: GameState = createInitialState(canvas);
+    let animationId: number;
 
-    setupInput(
+    const cleanupInput = setupInput(
         canvas,
         () => state,
         (newState) => (state = newState)
@@ -30,8 +31,13 @@ export function startGame(canvas: HTMLCanvasElement) {
 
         renderGame(ctx, state, canvas);
 
-        requestAnimationFrame(loop);
+        animationId = requestAnimationFrame(loop);
     };
 
     loop();
+
+    return () => {
+        cancelAnimationFrame(animationId);
+        if (cleanupInput) cleanupInput();
+    };
 }

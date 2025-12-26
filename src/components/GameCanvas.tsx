@@ -14,10 +14,15 @@ export function GameCanvas() {
     }
 
     resize();
-    startGame(canvas);
-
     window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
+
+    const stopGame = startGame(canvas);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+
+      if (stopGame) stopGame();
+    };
   }, []);
 
   return (

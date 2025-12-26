@@ -10,7 +10,6 @@ export function setupInput(
 ) {
     const handleJump = () => {
         unlockAudio();
-
         const state = getState();
 
         if (state.isGameOver) {
@@ -23,15 +22,23 @@ export function setupInput(
         applyJump(state.bird, -8);
     };
 
-    window.addEventListener("keydown", (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
         if (event.code === "Space") {
             handleJump();
         }
-    });
+    };
 
-    canvas.addEventListener("pointerdown", (event) => {
+    const handlePointerDown = (event: PointerEvent) => {
         if (event.button !== 0) return;
         event.preventDefault();
         handleJump();
-    });
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    canvas.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+        canvas.removeEventListener("pointerdown", handlePointerDown);
+    };
 }

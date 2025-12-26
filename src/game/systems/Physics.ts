@@ -17,24 +17,23 @@ export function checkCollision(
     canvas: HTMLCanvasElement
 ): boolean {
 
-    const birdHitboxX = bird.x + bird.hitboxOffsetX;
-    const birdHitboxY = bird.y + bird.hitboxOffsetY;
-    const birdHitboxRight = birdHitboxX + bird.hitboxWidth;
-    const birdHitboxBottom = birdHitboxY + bird.hitboxHeight;
+    const birdLeft = bird.x + bird.hitboxOffsetX;
+    const birdRight = birdLeft + bird.hitboxWidth;
+    const birdTop = bird.y + bird.hitboxOffsetY;
+    const birdBottom = birdTop + bird.hitboxHeight;
 
-    if (birdHitboxBottom >= canvas.height) return true;
-
-    if (birdHitboxY <= 0) return true;
+    if (birdBottom >= canvas.height || birdTop <= 0) return true;
 
     for (const pipe of pipes) {
-        const hitPipeX = birdHitboxRight > pipe.x && birdHitboxX < pipe.x + pipe.width;
 
-        const hitTopPipe = birdHitboxY < pipe.gapTop;
+        const overlapX = birdRight > pipe.x && birdLeft < pipe.x + pipe.width;
 
-        const hitBottomPipe = birdHitboxBottom > pipe.gapBottom;
+        if (overlapX) {
 
-        if (hitPipeX && (hitTopPipe || hitBottomPipe)) {
-            return true;
+            const hitTop = birdTop < pipe.gapTop;
+            const hitBottom = birdBottom > pipe.gapBottom;
+
+            if (hitTop || hitBottom) return true;
         }
     }
 
