@@ -1,7 +1,9 @@
 import gameOverSrc from "../../assets/audio/game_over.wav";
 import jumpSrc from "../../assets/audio/jump.wav";
 import highScoreSrc from "../../assets/audio/high-score.wav";
+import bgmSrc from "../../assets/audio/background_track.mp3";
 
+let bgm: HTMLAudioElement | null = null;
 let gameOverSound: HTMLAudioElement | null = null;
 let jumpSound: HTMLAudioElement | null = null;
 let highScoreSound: HTMLAudioElement | null = null;
@@ -9,6 +11,10 @@ let audioUnlocked = false;
 
 export function loadAudioAssets() {
     if (gameOverSound && jumpSound && highScoreSound) return;
+
+    bgm = new Audio(bgmSrc);
+    bgm.loop = true;
+    bgm.volume = 0.05;
 
     jumpSound = new Audio(jumpSrc);
     jumpSound.volume = 0.2;
@@ -28,12 +34,26 @@ export function unlockAudio() {
     jumpSound?.play()
         .then(() => {
             audioUnlocked = true;
+            playBGM();
         })
         .catch((err) => {
             console.log("Audio unlock failed", err);
             audioUnlocked = false;
         });
 }
+
+export function playBGM() {
+    if (!audioUnlocked || !bgm) return;
+    bgm.play().catch(() => { });
+}
+
+export function stopBGM() {
+    if (bgm) {
+        bgm.pause();
+        bgm.currentTime = 0;
+    }
+}
+
 export function playJumpSound() {
     if (!audioUnlocked || !jumpSound) return;
 
