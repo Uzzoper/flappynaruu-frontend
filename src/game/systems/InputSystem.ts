@@ -1,7 +1,7 @@
 import { createInitialState } from "../state/CreateInitialState";
 import type { GameState } from "../state/GameState";
 import { applyJump } from "../systems/Physics";
-import { unlockAudio } from "./AudioSystem";
+import { playJumpSound, unlockAudio } from "./AudioSystem";
 
 export function setupInput(
     canvas: HTMLCanvasElement,
@@ -20,6 +20,7 @@ export function setupInput(
         }
 
         applyJump(state.bird, -8);
+        playJumpSound();
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {

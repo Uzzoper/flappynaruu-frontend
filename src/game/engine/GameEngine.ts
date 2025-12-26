@@ -4,7 +4,7 @@ import { renderGame } from "../systems/RenderSystem";
 import { createInitialState } from "../state/CreateInitialState";
 import { loadBackground } from "../systems/BackgroundRender";
 import { setupInput } from "../systems/InputSystem";
-import { loadGameOverSound } from "../systems/AudioSystem";
+import { loadAudioAssets } from "../systems/AudioSystem";
 import { loadBirdSprites } from "../systems/BirdSprites";
 
 export function startGame(canvas: HTMLCanvasElement) {
@@ -13,7 +13,7 @@ export function startGame(canvas: HTMLCanvasElement) {
 
     loadBackground();
     loadBirdSprites();
-    loadGameOverSound();
+    loadAudioAssets();
 
     let state: GameState = createInitialState(canvas);
     let animationId: number;
