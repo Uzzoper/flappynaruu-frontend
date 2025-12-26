@@ -9,4 +9,5 @@ export interface GameState {
     score: number;
     canRestart: boolean;
     highScore: number;
+    isHighScoreBeaten: boolean;
 }

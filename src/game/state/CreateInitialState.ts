@@ -24,5 +24,6 @@ export function createInitialState(
         score: 0,
         canRestart: false,
         highScore: loadHighScore(),
+        isHighScoreBeaten: false,
     };
 }

@@ -3,7 +3,7 @@ import { applyGravity } from "./Physics";
 import { getDifficulty } from "./DifficultySystem";
 import { createPipe, updatePipes } from "./PipeSystem";
 import { checkCollision } from "./Physics";
-import { playGameOverSound } from "./AudioSystem";
+import { playGameOverSound, playHighScoreSound } from "./AudioSystem";
 import { saveHighScore } from "../state/HighScore";
 import { updateScore } from "./ScoreSystem";
 import { updateBirdAnimation } from "./BirdSystem";
@@ -19,7 +19,7 @@ export function updateGame(
     applyGravity(state.bird);
 
     updateBirdAnimation(state.bird);
-    
+
     const difficulty = getDifficulty(state.score);
 
     state.pipes = updatePipes(state.pipes, difficulty.pipeSpeed);
@@ -46,5 +46,13 @@ export function updateGame(
         return;
     }
 
-    state.score += updateScore(state.bird, state.pipes);
+    const pointsGained = updateScore(state.bird, state.pipes);
+    if (pointsGained > 0) {
+        state.score += pointsGained;
+
+        if (state.score > state.highScore && state.highScore > 0 && !state.isHighScoreBeaten) {
+            playHighScoreSound();
+            state.isHighScoreBeaten = true;
+        }
+    }
 }
