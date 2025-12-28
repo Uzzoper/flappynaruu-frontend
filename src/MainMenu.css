@@ -90,6 +90,11 @@
     box-shadow: 0 0 30px rgba(235, 140, 50, 0.6);
 }
 
+.play-button:active {
+    transform: scale(0.95);
+    transition: transform 0.05s ease;
+}
+
 .version {
     color: #8b8b9a;
     font-size: 1.1rem;

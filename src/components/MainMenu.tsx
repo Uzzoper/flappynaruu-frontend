@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../MainMenu.css";
 import birdImage from "../assets/image/bird/bird_0.png";
+import click from "../assets/audio/click.wav";
 
 interface MainMenuProps {
     onPlay: () => void;
@@ -8,6 +9,17 @@ interface MainMenuProps {
 
 const MainMenu = ({ onPlay }: MainMenuProps) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const playClickSound = () => {
+        const audio = new Audio(click);
+        audio.volume = 0.4;
+        audio.play().catch(error => console.log("Error playing click sound: ", error));
+    };
+
+    const handlePlayClick = () => {
+        playClickSound();
+        setTimeout(onPlay, 150);
+    };
 
     return (
         <div className="main-menu">
@@ -31,7 +43,7 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
 
                 <button
                     className={`play-button ${isHovered ? 'hovered' : ''}`}
-                    onClick={onPlay}
+                    onClick={handlePlayClick}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
