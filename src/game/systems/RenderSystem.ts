@@ -70,7 +70,7 @@ const drawGameOver = (
     if (canRestart) {
         ctx.font = "16px Arial";
         ctx.fillText(
-            "Aperte ESPAÇO para jogar novamente",
+            "Clique para jogar novamente",
             canvas.width / 2,
             canvas.height / 2 + 40
         );

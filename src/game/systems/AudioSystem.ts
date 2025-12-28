@@ -23,7 +23,7 @@ export function loadAudioAssets() {
     highScoreSound.volume = 0.3;
 
     gameOverSound = new Audio(gameOverSrc);
-    gameOverSound.volume = 0.5;
+    gameOverSound.volume = 0.4;
 }
 
 export function unlockAudio() {
