@@ -35,26 +35,27 @@ The game logic is decoupled from UI components, located in `src/game/systems/`:
 You must have [Bun](https://bun.sh) installed.
 
 ### Installation & Run
+
 1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/Uzzoper/flappy-naruu-frontend.git](https://github.com/Uzzoper/flappy-naruu-frontend.git)
+```bash
+   git clone https://github.com/Uzzoper/flappy-naruu-frontend.git
    cd flappy-naruu-frontend
-  ```
+```
 
 2. **Install dependencies:**
-  ```Bash
+```bash
   bun install
-  ```
+```
 
 3. **Run the development server:**
-  ```Bash
+```bash
   bun run dev
-  ```
+```
 
 4. **Build for production:**
-  ```Bash
+```bash
   bun run build
-  ```
+```
 
 ## License
 This project is licensed under the GNU GPLv3. See the LICENSE file for the full legal text.
