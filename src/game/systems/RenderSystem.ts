@@ -35,15 +35,6 @@ export function renderGame(
     ctx.fillText(`Score: ${state.score}`, 20, 30);
     ctx.fillText(`Highscore: ${state.highScore}`, 20, 55);
 
-
-    ctx.strokeStyle = "red";
-    ctx.strokeRect(
-        state.bird.x + state.bird.hitboxOffsetX,
-        state.bird.y + state.bird.hitboxOffsetY,
-        state.bird.hitboxWidth,
-        state.bird.hitboxHeight
-    );
-
     if (state.isGameOver) {
         drawGameOver(ctx, canvas, state.canRestart);
     }
