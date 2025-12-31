@@ -1,8 +1,8 @@
 import type { GameState } from "../state/GameState";
 import { updateGame } from "../systems/UpdateGame";
-import { renderGame } from "../systems/RenderSystem";
+import { renderGame } from "../render/RenderGame";
 import { createInitialState } from "../state/CreateInitialState";
-import { loadBackground } from "../systems/BackgroundRender";
+import { loadBackground } from "../render/BackgroundRenderer";
 import { setupInput } from "../systems/InputSystem";
 import { loadAudioAssets } from "../systems/AudioSystem";
 import { loadBirdSprites } from "../systems/BirdSprites";
