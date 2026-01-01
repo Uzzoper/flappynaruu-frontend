@@ -9,12 +9,19 @@ let jumpSound: HTMLAudioElement | null = null;
 let highScoreSound: HTMLAudioElement | null = null;
 let audioUnlocked = false;
 
-export function loadAudioAssets() {
+export async function loadAudioAssets(): Promise<void> {
     if (gameOverSound && jumpSound && highScoreSound) return;
+
+    const waitForAudio = (audio: HTMLAudioElement) => {
+        return new Promise<void>((resolve) => {
+            audio.oncanplaythrough = () => resolve();
+            audio.onerror = () => resolve();
+        });
+    };
 
     bgm = new Audio(bgmSrc);
     bgm.loop = true;
-    bgm.volume = 0.05;
+    bgm.volume = 0.06;
 
     jumpSound = new Audio(jumpSrc);
     jumpSound.volume = 0.2;
@@ -24,22 +31,28 @@ export function loadAudioAssets() {
 
     gameOverSound = new Audio(gameOverSrc);
     gameOverSound.volume = 0.4;
+
+    await Promise.all([
+        waitForAudio(bgm),
+        waitForAudio(jumpSound),
+        waitForAudio(highScoreSound),
+        waitForAudio(gameOverSound)
+    ]);
 }
 
 export function unlockAudio() {
     if (audioUnlocked) return;
 
-    if (!gameOverSound || !jumpSound || !highScoreSound) loadAudioAssets();
-
-    jumpSound?.play()
-        .then(() => {
-            audioUnlocked = true;
-            playBGM();
-        })
-        .catch((err) => {
-            console.log("Audio unlock failed", err);
-            audioUnlocked = false;
-        });
+    if (jumpSound) {
+        jumpSound.play()
+            .then(() => {
+                audioUnlocked = true;
+                playBGM();
+            })
+            .catch((err) => {
+                console.log("Audio unlock failed", err);
+            });
+    }
 }
 
 export function playBGM() {

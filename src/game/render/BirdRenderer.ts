@@ -5,7 +5,7 @@ export function drawBird(ctx: CanvasRenderingContext2D, bird: Bird) {
 
     const sprite = getBirdSprite(bird.frameIndex);
 
-    if (sprite && sprite.complete && sprite.naturalWidth > 0) {
+    if (sprite) {
         ctx.drawImage(
             sprite,
             bird.x,
