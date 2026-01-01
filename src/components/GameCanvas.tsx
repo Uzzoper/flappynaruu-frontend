@@ -8,6 +8,9 @@ export function GameCanvas() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    let isMounted = true;
+    let cleanupFn: (() => void) | undefined;
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -16,12 +19,22 @@ export function GameCanvas() {
     resize();
     window.addEventListener("resize", resize);
 
-    const stopGame = startGame(canvas);
+    const init = async () => {
+      const stop = await startGame(canvas);
+      if (!isMounted) {
+        if (stop) stop();
+        return;
+      }
+      cleanupFn = stop;
+    };
+
+    init();
 
     return () => {
+      isMounted = false;
       window.removeEventListener("resize", resize);
 
-      if (stopGame) stopGame();
+      if (cleanupFn) cleanupFn();
     };
   }, []);
 

@@ -1,19 +1,21 @@
 import type { GameState } from "../state/GameState";
 import { updateGame } from "../systems/UpdateGame";
-import { renderGame } from "../systems/RenderSystem";
+import { renderGame } from "../render/RenderGame";
 import { createInitialState } from "../state/CreateInitialState";
-import { loadBackground } from "../systems/BackgroundRender";
+import { loadBackground } from "../render/BackgroundRenderer";
 import { setupInput } from "../systems/InputSystem";
 import { loadAudioAssets } from "../systems/AudioSystem";
 import { loadBirdSprites } from "../systems/BirdSprites";
 
-export function startGame(canvas: HTMLCanvasElement) {
+export async function startGame(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    loadBackground();
-    loadBirdSprites();
-    loadAudioAssets();
+    await Promise.all([
+    loadBackground(),
+    loadBirdSprites(),
+    loadAudioAssets()
+    ]);
 
     let state: GameState = createInitialState(canvas);
     let animationId: number;
