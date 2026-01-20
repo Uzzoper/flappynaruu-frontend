@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../MainMenu.css";
+import "./MainMenu.css";
 import birdImage from "../assets/image/bird/bird_0.png";
 import click from "../assets/audio/click.wav";
 

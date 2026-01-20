@@ -10,4 +10,6 @@ export interface GameState {
     canRestart: boolean;
     highScore: number;
     isHighScoreBeaten: boolean;
+    isTopScore: boolean;
+    leaderboardStatus: 'idle' | 'checking' | 'input' | 'saving' | 'saved' | 'failed';
 }

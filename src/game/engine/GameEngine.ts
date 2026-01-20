@@ -7,18 +7,22 @@ import { setupInput } from "../systems/InputSystem";
 import { loadAudioAssets } from "../systems/AudioSystem";
 import { loadBirdSprites } from "../systems/BirdSprites";
 
-export async function startGame(canvas: HTMLCanvasElement) {
+export async function startGame(
+    canvas: HTMLCanvasElement,
+    onStateChange?: (state: GameState) => void
+) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     await Promise.all([
-    loadBackground(),
-    loadBirdSprites(),
-    loadAudioAssets()
+        loadBackground(),
+        loadBirdSprites(),
+        loadAudioAssets()
     ]);
 
     let state: GameState = createInitialState(canvas);
     let animationId: number;
+    let lastLeaderboardStatus = state.leaderboardStatus;
 
     const cleanupInput = setupInput(
         canvas,
@@ -33,13 +37,23 @@ export async function startGame(canvas: HTMLCanvasElement) {
 
         renderGame(ctx, state, canvas);
 
+        if (state.leaderboardStatus !== lastLeaderboardStatus) {
+            lastLeaderboardStatus = state.leaderboardStatus;
+            if (onStateChange) onStateChange({ ...state });
+        }
+
         animationId = requestAnimationFrame(loop);
     };
 
     loop();
 
-    return () => {
-        cancelAnimationFrame(animationId);
-        if (cleanupInput) cleanupInput();
+    return {
+        stop: () => {
+            cancelAnimationFrame(animationId);
+            if (cleanupInput) cleanupInput();
+        },
+        reset: () => {
+            state = createInitialState(canvas);
+        }
     };
 }
