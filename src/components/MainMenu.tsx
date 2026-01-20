@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./MainMenu.css";
 import birdImage from "../assets/image/bird/bird_0.png";
 import click from "../assets/audio/click.wav";
+import { getTop5Scores } from "../api/LeaderboardApi";
+import type { LeaderboardEntry } from "../api/Types";
 
 interface MainMenuProps {
     onPlay: () => void;
@@ -9,6 +11,20 @@ interface MainMenuProps {
 
 const MainMenu = ({ onPlay }: MainMenuProps) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [scores, setScores] = useState<LeaderboardEntry[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        getTop5Scores()
+            .then(data => {
+                setScores(data);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to fetch scores", err);
+                setIsLoading(false);
+            });
+    }, []);
 
     const playClickSound = () => {
         const audio = new Audio(click);
@@ -49,6 +65,27 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
                 >
                     ▶ JOGAR
                 </button>
+
+                <div className="leaderboard-container">
+                    <h3 className="leaderboard-title">TOP 5 GLOBAL</h3>
+                    {isLoading ? (
+                        <p className="loading-text">Carregando...</p>
+                    ) : (
+                        <ul className="leaderboard-list">
+                            {scores.length > 0 ? (
+                                scores.map((entry, index) => (
+                                    <li key={index} className="leaderboard-item">
+                                        <span className="rank">#{index + 1}</span>
+                                        <span className="nickname">{entry.nickname}</span>
+                                        <span className="score">{entry.score}</span>
+                                    </li>
+                                ))
+                            ) : (
+                                <p className="no-scores">Sem recordes ainda</p>
+                            )}
+                        </ul>
+                    )}
+                </div>
 
                 <div className="version">
                     V 0.0.1
