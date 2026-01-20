@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/leaderboard/:path*",
+            "destination": "https://flappynaruu-backend-production.up.railway.app/leaderboard/:path*"
+        }
+    ]
+}
