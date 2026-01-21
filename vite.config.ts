@@ -10,4 +10,13 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      '/leaderboard': {
+        target: 'https://flappynaruu-backend-production.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })

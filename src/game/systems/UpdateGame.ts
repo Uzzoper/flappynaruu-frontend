@@ -7,6 +7,7 @@ import { playGameOverSound, playHighScoreSound } from "./AudioSystem";
 import { saveHighScore } from "../state/HighScore";
 import { updateScore } from "./ScoreSystem";
 import { updateBirdAnimation } from "./BirdSystem";
+import { checkIfTopScore } from "../services/LeaderboardService";
 
 export function updateGame(
     state: GameState,
@@ -39,9 +40,26 @@ export function updateGame(
             saveHighScore(state.score);
         }
 
-        setTimeout(() => {
-            state.canRestart = true;
-        }, 1000);
+        if (state.score > 0) {
+            state.leaderboardStatus = 'checking';
+
+            checkIfTopScore(state.score).then(isTop => {
+                if (isTop) {
+                    state.isTopScore = true;
+                    state.leaderboardStatus = 'input';
+                    state.canRestart = false;
+                } else {
+                    state.leaderboardStatus = 'idle';
+                    setTimeout(() => {
+                        state.canRestart = true;
+                    }, 1000);
+                }
+            });
+        } else {
+            setTimeout(() => {
+                state.canRestart = true;
+            }, 1000);
+        }
 
         return;
     }

@@ -1,6 +1,6 @@
 .main-menu {
     position: relative;
-    min-height: 100dvh;
+    height: 100%;
     width: 100%;
     background: linear-gradient(-45deg, #0d0d14, #1a1025, #3a1c5e, #0d0d14);
     background-size: 400% 400%;
@@ -9,7 +9,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
     padding: 1rem;
 }
@@ -120,7 +121,75 @@
     text-transform: uppercase;
     font-size: 0.75rem;
     opacity: 0.6;
+    opacity: 0.6;
     z-index: 10;
+}
+
+.leaderboard-container {
+    margin-top: 2rem;
+    width: 90%;
+    max-width: 400px;
+    background: rgba(13, 13, 20, 0.6);
+    border: 1px solid rgba(235, 140, 50, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(5px);
+}
+
+.leaderboard-title {
+    color: #eb8c32;
+    text-align: center;
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px rgba(235, 140, 50, 0.4);
+}
+
+.loading-text,
+.no-scores {
+    color: #8b8b9a;
+    text-align: center;
+    font-style: italic;
+}
+
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(235, 140, 50, 0.1);
+    color: #f5f0e6;
+    font-size: 1rem;
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.rank {
+    color: #eb8c32;
+    font-weight: bold;
+    width: 30px;
+}
+
+.nickname {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+
+.score {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .license-link {
