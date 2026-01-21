@@ -12,6 +12,10 @@ export function setupInput(
         unlockAudio();
         const state = getState();
 
+        if (state.showTutorial) {
+            state.showTutorial = false;
+        }
+
         if (state.isGameOver) {
             if (state.canRestart) {
                 setState(createInitialState(canvas));

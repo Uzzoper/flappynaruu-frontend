@@ -4,6 +4,7 @@ import { drawBackground } from "./BackgroundRenderer";
 import { drawBird } from "./BirdRenderer";
 import { drawHUD } from "./HUDRenderer";
 import { drawGameOver } from "./GameOverRenderer";
+import { drawTutorial } from "./TutorialRenderer";
 
 export function renderGame(ctx: CanvasRenderingContext2D, state: GameState, canvas: HTMLCanvasElement) {
     drawBackground(ctx);
@@ -21,5 +22,7 @@ export function renderGame(ctx: CanvasRenderingContext2D, state: GameState, canv
 
     if (state.isGameOver) {
         drawGameOver(ctx, canvas, state.canRestart);
+    } else if (state.showTutorial) {
+        drawTutorial(ctx, canvas);
     }
 }
