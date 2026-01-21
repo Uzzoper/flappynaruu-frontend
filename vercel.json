@@ -1,8 +1,12 @@
 {
     "rewrites": [
         {
-            "source": "/leaderboard/:path*",
-            "destination": "https://flappynaruu-backend-production.up.railway.app/leaderboard/:path*"
+            "source": "/leaderboard",
+            "destination": "https://flappynaruu-backend-production.up.railway.app/leaderboard"
+        },
+        {
+            "source": "/leaderboard/:path+",
+            "destination": "https://flappynaruu-backend-production.up.railway.app/leaderboard/:path+"
         }
     ]
 }
