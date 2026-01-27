@@ -10,9 +10,20 @@ const api = axios.create({
     },
 });
 
-export const saveScore = async (nickname: string, score: number): Promise<boolean> => {
-    const response = await api.post('/leaderboard', { nickname, score });
-    return response.status === 201;
+export const saveScore = async (nickname: string, score: number): Promise<void> => {
+    try {
+        await api.post('/leaderboard', { nickname, score });
+    } catch (err: any) {
+        if (err.response && err.response.data && err.response.data.message) {
+            // Normalize error message (e.g., "nickname: Msg" -> "Msg")
+            const rawMessage = err.response.data.message;
+            const cleanMessage = rawMessage.includes(': ')
+                ? rawMessage.split(': ').slice(1).join(': ')
+                : rawMessage;
+            throw new Error(cleanMessage);
+        }
+        throw new Error('Não foi possível salvar o recorde.');
+    }
 };
 
 export const getTop5Scores = async (): Promise<LeaderboardEntry[]> => {
