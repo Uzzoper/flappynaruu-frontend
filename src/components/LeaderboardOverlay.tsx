@@ -21,15 +21,11 @@ export function LeaderboardOverlay({ score, onSaved, onClose }: LeaderboardOverl
         setError(null);
 
         try {
-            const success = await saveScore(nickname, score);
-            if (success) {
-                onSaved();
-            } else {
-                setError('Não foi possível salvar o recorde (talvez alguém te passou!).');
-            }
-        } catch (err) {
+            await saveScore(nickname, score);
+            onSaved();
+        } catch (err: any) {
             console.error(err);
-            setError('Erro ao conectar com o servidor.');
+            setError(err.message || 'Erro ao conectar com o servidor.');
         } finally {
             setIsSaving(false);
         }
