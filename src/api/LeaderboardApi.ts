@@ -15,7 +15,12 @@ export const saveScore = async (nickname: string, score: number): Promise<void> 
         await api.post('/leaderboard', { nickname, score });
     } catch (err: any) {
         if (err.response && err.response.data && err.response.data.message) {
-            throw new Error(err.response.data.message);
+            // Normalize error message (e.g., "nickname: Msg" -> "Msg")
+            const rawMessage = err.response.data.message;
+            const cleanMessage = rawMessage.includes(': ')
+                ? rawMessage.split(': ').slice(1).join(': ')
+                : rawMessage;
+            throw new Error(cleanMessage);
         }
         throw new Error('Não foi possível salvar o recorde.');
     }
