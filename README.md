@@ -27,7 +27,7 @@ The game logic is decoupled from UI components, located in `src/game/systems/`:
 * **`Physics.ts`**: Core collision detection and gravity engine.
 * **`InputSystem.ts`**: Centralized event handling for player interactions.
 * **`ScoreSystem.ts` & `DifficultySystem.ts`**: Manages game progression and dynamic difficulty scaling.
-* **`BackgroundRender.ts` & `RenderSystem.ts`**: Optimized rendering logic for parallax and game entities.
+* **`BackgroundRender.ts` & `RenderGame.ts`**: Optimized rendering logic for parallax and game entities.
 
 ## Getting Started
 
