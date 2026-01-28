@@ -5,7 +5,8 @@ export function createPipe(
     canvasWidth: number,
     gapSize: number
 ): Pipe {
-    const gapPosition = Math.random() * (canvasHeight - gapSize - 40) + 20;
+    const minMargin = 80;
+    const gapPosition = Math.random() * (canvasHeight - gapSize - minMargin * 2) + minMargin;
 
     return {
         x: canvasWidth,
