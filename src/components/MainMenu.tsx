@@ -88,12 +88,12 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
                 </div>
 
                 <div className="version">
-                    V 0.0.1
+                    V 0.0.2
                 </div>
 
                 <div className="footer">
                     <p>
-                        © 2025 Flappy Naruu  is a
+                        © 2025-2026 Flappy Naruu is a
                         <a
                             href="https://www.gnu.org/licenses/gpl-3.0"
                             target="_blank"
