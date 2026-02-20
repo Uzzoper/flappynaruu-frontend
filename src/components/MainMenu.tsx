@@ -39,9 +39,11 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
 
     return (
         <div className="main-menu">
-            <div className="menu-background" />
+            <div className="background-container">
+                <div className="menu-background" />
+            </div>
 
-            <div className="menu-content">
+            <div className="menu-content" style={{ position: 'relative', zIndex: 10 }}>
                 <h1 className="title">FLAPPY</h1>
                 <h2 className="subtitle">NARUU</h2>
 
@@ -115,7 +117,7 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
