@@ -22,7 +22,7 @@ export function renderGame(ctx: CanvasRenderingContext2D, state: GameState, canv
 
     if (state.isGameOver) {
         drawGameOver(ctx, canvas, state.canRestart);
-    } else if (state.showTutorial) {
-        drawTutorial(ctx, canvas);
+    } else if (state.tutorialState !== 'none') {
+        drawTutorial(ctx, canvas, state.tutorialState);
     }
 }

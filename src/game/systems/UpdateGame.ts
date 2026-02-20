@@ -15,6 +15,17 @@ export function updateGame(
 ) {
     if (state.isGameOver) return;
 
+    if (state.tutorialState === 'start') {
+        state.frames++;
+        updateBirdAnimation(state.bird);
+        state.bird.y += Math.sin(state.frames * 0.1) * 1.5;
+        return;
+    }
+
+    if (state.tutorialState === 'playing' && state.score > 0) {
+        state.tutorialState = 'none';
+    }
+
     state.frames++;
 
     applyGravity(state.bird);

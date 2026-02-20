@@ -12,8 +12,8 @@ export function setupInput(
         unlockAudio();
         const state = getState();
 
-        if (state.showTutorial) {
-            state.showTutorial = false;
+        if (state.tutorialState === 'start') {
+            state.tutorialState = 'playing';
         }
 
         if (state.isGameOver) {

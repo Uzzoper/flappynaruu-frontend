@@ -1,4 +1,4 @@
-export function drawTutorial(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+export function drawTutorial(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, tutorialState: 'start' | 'playing') {
     ctx.save();
     ctx.font = "24px 'Press Start 2P', monospace";
     ctx.fillStyle = "white";
@@ -10,7 +10,9 @@ export function drawTutorial(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEl
     ctx.shadowOffsetX = 2;
     ctx.shadowOffsetY = 2;
 
-    const text = "Clique várias vezes para Naruu voar";
+    const text = tutorialState === 'start'
+        ? "Toque para começar"
+        : "Clique várias vezes para Naruu pular";
     const x = canvas.width / 2;
     const y = canvas.height / 2 + 80;
 
