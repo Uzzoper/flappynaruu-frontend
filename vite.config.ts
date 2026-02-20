@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/leaderboard': {
-        target: 'https://flappynaruu-backend-production.up.railway.app',
+        target: 'https://flappynaruu-backend.onrender.com',
         changeOrigin: true,
         secure: false,
       },

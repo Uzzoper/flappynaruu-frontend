@@ -2,11 +2,11 @@
     "rewrites": [
         {
             "source": "/leaderboard",
-            "destination": "https://flappynaruu-backend-production.up.railway.app/leaderboard"
+            "destination": "https://flappynaruu-backend.onrender.com/leaderboard"
         },
         {
             "source": "/leaderboard/:path+",
-            "destination": "https://flappynaruu-backend-production.up.railway.app/leaderboard/:path+"
+            "destination": "https://flappynaruu-backend.onrender.com/leaderboard/:path+"
         }
     ]
 }
