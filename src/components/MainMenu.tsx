@@ -104,7 +104,11 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
                         </a>
                     </p>
                     <div className="social-links">
-                        <p> Developed by <a href="https://juanperuzzo.vercel.app/" target="_blank" rel="noopener noreferrer" className="social-link">Juan Antonio Peruzzo</a></p>
+                        <p> Developed by {" "}
+                            <a href="https://juanperuzzo.is-a.dev" target="_blank" rel="noopener noreferrer" className="social-link">
+                                Juan Antonio Peruzzo
+                            </a>
+                        </p>
                         <a href="https://github.com/Uzzoper" target="_blank" rel="noopener noreferrer" className="social-link">
                             My GitHub
                         </a>
