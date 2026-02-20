@@ -20,7 +20,7 @@ export function drawTutorial(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEl
     const words = text.split(' ');
     let line = '';
     const lineHeight = 30;
-    let currentY = y;
+    const currentY = y;
 
     if (canvas.width < 400) {
         ctx.font = "16px 'Press Start 2P', monospace";

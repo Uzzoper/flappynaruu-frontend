@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { saveScore } from '../api/LeaderboardApi';
 import './LeaderboardOverlay.css';
+import { AxiosError } from 'axios';
 
 interface LeaderboardOverlayProps {
     score: number;
@@ -23,9 +24,9 @@ export function LeaderboardOverlay({ score, onSaved, onClose }: LeaderboardOverl
         try {
             await saveScore(nickname, score);
             onSaved();
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
-            setError(err.message || 'Erro ao conectar com o servidor.');
+            setError(err instanceof AxiosError ? err.response?.data?.message : 'Erro ao conectar com o servidor.');
         } finally {
             setIsSaving(false);
         }

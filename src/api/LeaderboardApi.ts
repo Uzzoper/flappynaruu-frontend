@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { LeaderboardEntry } from './Types';
+import { AxiosError } from 'axios';
 
 const API_BASE_URL = '';
 
@@ -13,9 +14,8 @@ const api = axios.create({
 export const saveScore = async (nickname: string, score: number): Promise<void> => {
     try {
         await api.post('/leaderboard', { nickname, score });
-    } catch (err: any) {
-        if (err.response && err.response.data && err.response.data.message) {
-            // Normalize error message (e.g., "nickname: Msg" -> "Msg")
+    } catch (err: unknown) {
+        if (err instanceof AxiosError && err.response && err.response.data && err.response.data.message) {
             const rawMessage = err.response.data.message;
             const cleanMessage = rawMessage.includes(': ')
                 ? rawMessage.split(': ').slice(1).join(': ')
