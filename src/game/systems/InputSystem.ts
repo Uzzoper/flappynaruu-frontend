@@ -1,3 +1,4 @@
+import { JUMP_FORCE } from "../config/Constants";
 import { createInitialState } from "../state/CreateInitialState";
 import type { GameState } from "../state/GameState";
 import { applyJump } from "../systems/Physics";
@@ -23,7 +24,7 @@ export function setupInput(
             return;
         }
 
-        applyJump(state.bird, -8);
+        applyJump(state.bird, JUMP_FORCE);
         playJumpSound();
     };
 
