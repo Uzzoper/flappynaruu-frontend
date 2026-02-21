@@ -12,6 +12,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
+      useCredentials: true,
       includeAssets: ['favicon.png'],
       manifest: {
         name: 'Flappynaruu',
