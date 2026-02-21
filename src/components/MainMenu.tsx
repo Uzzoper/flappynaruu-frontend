@@ -14,7 +14,13 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
     const [isHovered, setIsHovered] = useState(false);
     const [scores, setScores] = useState<LeaderboardEntry[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { isInstallable, installApp } = usePWAInstall();
+    const [showInstallToast, setShowInstallToast] = useState(false);
+    const { isInstallable, installApp } = usePWAInstall(() => {
+        setShowInstallToast(true);
+        setTimeout(() => {
+            setShowInstallToast(false);
+        }, 3000);
+    });
 
     useEffect(() => {
         getTop5Scores()
@@ -72,8 +78,13 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
 
                 {isInstallable && (
                     <button className="install-button" onClick={installApp}>
-                        📲 Instalar App
+                        📲 Adicionar à Tela Inicial
                     </button>
+                )}
+                {showInstallToast && (
+                    <div className="install-toast">
+                        Ícone adicionado! Procure o ícone do Naruu na sua tela inicial!
+                    </div>
                 )}
 
                 <div className="leaderboard-container">

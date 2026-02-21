@@ -9,7 +9,7 @@ interface BeforeInstallPromptEvent extends Event {
     prompt(): Promise<void>;
 }
 
-export function usePWAInstall() {
+export function usePWAInstall(onInstalled?: () => void) {
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [isInstallable, setIsInstallable] = useState(false);
 
@@ -23,7 +23,7 @@ export function usePWAInstall() {
         const handleAppInstalled = () => {
             setIsInstallable(false);
             setDeferredPrompt(null);
-            console.log('PWA was installed');
+            onInstalled?.();
         };
 
         window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -33,7 +33,7 @@ export function usePWAInstall() {
             window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
             window.removeEventListener('appinstalled', handleAppInstalled);
         };
-    }, []);
+    }, [onInstalled]);
 
     const installApp = async () => {
         if (!deferredPrompt) return;

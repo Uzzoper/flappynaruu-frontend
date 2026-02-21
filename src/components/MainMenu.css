@@ -344,3 +344,25 @@
         filter: drop-shadow(0 0 35px rgba(235, 140, 50, 0.8)) drop-shadow(0 0 40px rgba(235, 140, 50, 1));
     }
 }
+
+.install-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 1000;
+    animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+}
+@keyframes slideUp {
+    from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
