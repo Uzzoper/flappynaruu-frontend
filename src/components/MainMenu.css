@@ -109,6 +109,31 @@
     transition: transform 0.05s ease;
 }
 
+.install-button {
+    background: transparent;
+    color: #eb8c32;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    padding: 0.8rem 2rem;
+    margin-top: 1rem;
+    border: 2px solid #eb8c32;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(235, 140, 50, 0.2);
+}
+
+.install-button:hover {
+    background: rgba(235, 140, 50, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(235, 140, 50, 0.4);
+}
+
+.install-button:active {
+    transform: scale(0.95);
+}
+
 .version {
     color: #8b8b9a;
     font-size: 1.1rem;

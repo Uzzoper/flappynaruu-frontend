@@ -13,6 +13,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       useCredentials: true,
+      devOptions: {
+        enabled: true,
+      },
       includeAssets: ['favicon.png'],
       manifest: {
         name: 'Flappynaruu',
@@ -32,7 +35,6 @@ export default defineConfig({
             src: '/favicon.png',
             sizes: '500x500',
             type: 'image/png',
-            purpose: 'maskable',
           },
         ],
       },

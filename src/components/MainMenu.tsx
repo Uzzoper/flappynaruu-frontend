@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { usePWAInstall } from "../hooks/usePWAInstall";
 import "./MainMenu.css";
 import birdImage from "../assets/image/bird/bird_0.png";
 import click from "../assets/audio/click.wav";
@@ -13,6 +14,7 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
     const [isHovered, setIsHovered] = useState(false);
     const [scores, setScores] = useState<LeaderboardEntry[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { isInstallable, installApp } = usePWAInstall();
 
     useEffect(() => {
         getTop5Scores()
@@ -67,6 +69,12 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
                 >
                     ▶ JOGAR
                 </button>
+
+                {isInstallable && (
+                    <button className="install-button" onClick={installApp}>
+                        📲 Instalar App
+                    </button>
+                )}
 
                 <div className="leaderboard-container">
                     <h3 className="leaderboard-title">TOP 5 GLOBAL</h3>
