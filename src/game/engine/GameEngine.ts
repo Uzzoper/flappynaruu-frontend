@@ -6,6 +6,7 @@ import { loadBackground } from "../render/BackgroundRenderer";
 import { setupInput } from "../systems/InputSystem";
 import { loadAudioAssets } from "../systems/AudioSystem";
 import { loadBirdSprites } from "../systems/BirdSprites";
+import { loadMinecraftFont } from "../render/HUDRenderer";
 
 export async function startGame(
     canvas: HTMLCanvasElement,
@@ -17,7 +18,8 @@ export async function startGame(
     await Promise.all([
         loadBackground(),
         loadBirdSprites(),
-        loadAudioAssets()
+        loadAudioAssets(),
+        loadMinecraftFont()
     ]);
 
     let state: GameState = createInitialState(canvas);

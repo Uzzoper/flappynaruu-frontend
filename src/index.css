@@ -1,14 +1,233 @@
-html, body, #root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+@import 'pixel-retroui/dist/index.css';
+@import 'pixel-retroui/dist/fonts.css';
+@import "tailwindcss";
+
+@theme {
+    --color-naruu-orange: #eb8c32;
+    --color-naruu-purple: #3a1c5e;
+    --color-naruu-dark: #0d0d14;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 body {
-  overflow: hidden;
-  background-color: #000;
+    overflow: hidden;
+    background-color: #000;
 }
 
 canvas {
     touch-action: none;
+}
+
+.bg-gradient-animated {
+    background: linear-gradient(-45deg, #0d0d14, #1a1025, #3a1c5e, #0d0d14);
+    background-size: 400% 400%;
+    animation: gradientMovement 10s ease infinite;
+}
+
+.bg-radial-glow {
+    background: radial-gradient(circle,
+            rgba(235, 140, 50, 0.15) 0%,
+            rgba(235, 140, 50, 0.15) 40%,
+            transparent 75%);
+    filter: brightness(1.5) blur(20px);
+    animation: energyPulse 3s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.animate-bird-glow {
+    animation: birdGlow 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.3s ease;
+}
+
+.title-flappy {
+    font-size: 3rem !important;
+    line-height: 1 !important;
+}
+
+.title-naruu {
+    font-size: 3rem !important;
+    line-height: 1 !important;
+}
+
+@media (min-width: 768px) {
+    .title-flappy {
+        font-size: 5rem !important;
+    }
+
+    .title-naruu {
+        font-size: 3rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .title-flappy {
+        font-size: 6rem !important;
+    }
+
+    .title-naruu {
+        font-size: 4rem !important;
+    }
+}
+
+.footer-link {
+    color: #eb8c32 !important;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #f5f0e6 !important;
+    text-shadow: 0 0 10px rgba(235, 140, 50, 0.8);
+}
+
+.tutorial-text {
+    font-family: 'Minecraft', sans-serif !important;
+    font-style: normal !important;
+}
+
+@keyframes gradientMovement {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes energyPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+        filter: brightness(1.2) blur(20px);
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 0.9;
+        filter: brightness(2) blur(30px);
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes birdGlow {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 20px rgba(235, 140, 50, 0.5)) drop-shadow(0 0 30px rgba(235, 140, 50, 0.8));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 35px rgba(235, 140, 50, 0.8)) drop-shadow(0 0 40px rgba(235, 140, 50, 1));
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateX(-50%) translateY(100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+.btn-retro-enhanced {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease !important;
+    animation: buttonPulse 2s ease-in-out infinite;
+}
+
+.btn-retro-enhanced::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent);
+    transform: skewX(-25deg);
+    animation: shine 3s infinite;
+    pointer-events: none;
+}
+
+.btn-retro-enhanced:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 40px rgba(235, 140, 50, 1) !important;
+}
+
+@keyframes buttonPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(235, 140, 50, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(235, 140, 50, 0.8);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -150%;
+    }
+
+    30% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
 }

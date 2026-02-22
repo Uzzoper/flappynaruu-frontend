@@ -1,6 +1,6 @@
 export function drawTutorial(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, tutorialState: 'start' | 'playing') {
     ctx.save();
-    ctx.font = "24px 'Press Start 2P', monospace";
+    ctx.font = "24px 'Minecraft', 'Press Start 2P', monospace";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -23,7 +23,7 @@ export function drawTutorial(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEl
     const currentY = y;
 
     if (canvas.width < 400) {
-        ctx.font = "16px 'Press Start 2P', monospace";
+        ctx.font = "16px 'Minecraft', 'Press Start 2P', monospace";
     }
     const lines = [];
     for (let n = 0; n < words.length; n++) {

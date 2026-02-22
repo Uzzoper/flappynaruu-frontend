@@ -3,7 +3,7 @@ export function drawGameOver(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEl
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "white";
-    ctx.font = "32px Arial";
+    ctx.font = "32px 'Minecraft', 'Press Start 2P', monospace";
     ctx.textAlign = "center";
 
     ctx.fillText(
@@ -13,11 +13,12 @@ export function drawGameOver(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasEl
     );
 
     if (canRestart) {
-        ctx.font = "16px Arial";
+        ctx.font = "16px 'Minecraft', 'Press Start 2P', monospace";
         ctx.fillText(
             "Clique para jogar novamente",
             canvas.width / 2,
             canvas.height / 2 + 40
         );
     }
+
 }
