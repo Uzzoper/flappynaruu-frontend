@@ -10,7 +10,8 @@ export function GameCanvas() {
   const [leaderboardState, setLeaderboardState] = useState<{
     show: boolean;
     score: number;
-  }>({ show: false, score: 0 });
+    connectionError: boolean;
+  }>({ show: false, score: 0, connectionError: false });
 
   const stopGameRef = useRef<(() => void) | undefined>(undefined);
   const resetGameRef = useRef<(() => void) | undefined>(undefined);
@@ -34,7 +35,7 @@ export function GameCanvas() {
         if (!isMounted) return;
 
         if (state.leaderboardStatus === 'input') {
-          setLeaderboardState({ show: true, score: state.score });
+          setLeaderboardState({ show: true, score: state.score, connectionError: state.connectionError });
         }
       });
 
@@ -58,12 +59,12 @@ export function GameCanvas() {
   }, []);
 
   const handleSaved = () => {
-    setLeaderboardState({ show: false, score: 0 });
+    setLeaderboardState({ show: false, score: 0, connectionError: false });
     if (resetGameRef.current) resetGameRef.current();
   };
 
   const handleClose = () => {
-    setLeaderboardState({ show: false, score: 0 });
+    setLeaderboardState({ show: false, score: 0, connectionError: false });
     if (resetGameRef.current) resetGameRef.current();
   };
 
@@ -82,6 +83,7 @@ export function GameCanvas() {
       {leaderboardState.show && (
         <LeaderboardOverlay
           score={leaderboardState.score}
+          initialError={leaderboardState.connectionError ? 'Nós pedimos desculpas, o servidor não respondeu a tempo. Temos certeza que na próxima será possível salvar seu highscore!' : undefined}
           onSaved={handleSaved}
           onClose={handleClose}
         />

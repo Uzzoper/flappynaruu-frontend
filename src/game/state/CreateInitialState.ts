@@ -27,6 +27,7 @@ export function createInitialState(
         isHighScoreBeaten: false,
         isTopScore: false,
         leaderboardStatus: 'idle',
+        connectionError: false,
         tutorialState: 'start',
     };
 }

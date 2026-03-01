@@ -15,12 +15,15 @@ export const saveScore = async (nickname: string, score: number): Promise<void> 
     try {
         await api.post('/leaderboard', { nickname, score });
     } catch (err: unknown) {
-        if (err instanceof AxiosError && err.response && err.response.data && err.response.data.message) {
-            const rawMessage = err.response.data.message;
-            const cleanMessage = rawMessage.includes(': ')
-                ? rawMessage.split(': ').slice(1).join(': ')
-                : rawMessage;
-            throw new Error(cleanMessage);
+        if (err instanceof AxiosError) {
+            if (err.response && err.response.data && err.response.data.message) {
+                const rawMessage = err.response.data.message;
+                const cleanMessage = rawMessage.includes(': ')
+                    ? rawMessage.split(': ').slice(1).join(': ')
+                    : rawMessage;
+                throw new Error(cleanMessage);
+            }
+            throw new Error('Não foi possível salvar o recorde.');
         }
         throw new Error('Não foi possível salvar o recorde.');
     }

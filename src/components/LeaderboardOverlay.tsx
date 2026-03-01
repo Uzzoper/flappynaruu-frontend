@@ -1,17 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { saveScore } from '../api/LeaderboardApi';
 import { Card, Input, Button } from 'pixel-retroui';
 
 interface LeaderboardOverlayProps {
     score: number;
+    initialError?: string;
     onSaved: () => void;
     onClose: () => void;
 }
 
-export function LeaderboardOverlay({ score, onSaved, onClose }: LeaderboardOverlayProps) {
+export function LeaderboardOverlay({ score, initialError, onSaved, onClose }: LeaderboardOverlayProps) {
     const [nickname, setNickname] = useState('');
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (initialError) {
+            setError(initialError);
+            const timer = setTimeout(() => onClose(), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [initialError, onClose]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

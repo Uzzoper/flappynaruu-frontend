@@ -65,6 +65,10 @@ export function updateGame(
                         state.canRestart = true;
                     }, 1000);
                 }
+            }).catch(() => {
+                state.connectionError = true;
+                state.leaderboardStatus = 'input';
+                state.canRestart = false;
             });
         } else {
             setTimeout(() => {
