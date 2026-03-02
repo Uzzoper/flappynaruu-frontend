@@ -35,6 +35,44 @@ export default defineConfig({
                     }
                 ],
             },
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,png,svg,ico,wav,mp3,otf}'],
+                maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
+                runtimeCaching: [
+                    {
+                        urlPattern: /\.(?:png|jpg|jpeg|svg|ico)$/,
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'images-cache',
+                            expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 30 }
+                        }
+                    },
+                    {
+                        urlPattern: /\.(?:wav|mp3)$/,
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'audio-cache',
+                            expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 30 }
+                        }
+                    },
+                    {
+                        urlPattern: /\.otf$/,
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'fonts-cache',
+                            expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 }
+                        }
+                    },
+                    {
+                        urlPattern: /\/index\.html$/,
+                        handler: 'StaleWhileRevalidate',
+                        options: {
+                            cacheName: 'html-cache',
+                            expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 * 24 }
+                        }
+                    }
+                ]
+            }
         }),
     ],
     server: {
