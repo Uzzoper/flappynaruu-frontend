@@ -11,7 +11,7 @@ export interface GameState {
     highScore: number;
     isHighScoreBeaten: boolean;
     isTopScore: boolean;
-    leaderboardStatus: 'idle' | 'checking' | 'input' | 'saving' | 'saved' | 'failed';
+    leaderboardStatus: 'idle' | 'checking' | 'input' | 'saving' | 'saved' | 'failed' | 'postgame';
     connectionError: boolean;
     tutorialState: 'start' | 'playing' | 'none';
 }

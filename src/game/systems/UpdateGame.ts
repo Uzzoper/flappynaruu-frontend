@@ -51,29 +51,19 @@ export function updateGame(
             saveHighScore(state.score);
         }
 
-        if (state.score > 0) {
-            state.leaderboardStatus = 'checking';
+        state.leaderboardStatus = 'postgame';
+        setTimeout(() => {
+            state.canRestart = true;
+        }, 1000);
 
+        if (state.score > 0) {
             checkIfTopScore(state.score).then(isTop => {
                 if (isTop) {
                     state.isTopScore = true;
                     state.leaderboardStatus = 'input';
                     state.canRestart = false;
-                } else {
-                    state.leaderboardStatus = 'idle';
-                    setTimeout(() => {
-                        state.canRestart = true;
-                    }, 1000);
                 }
-            }).catch(() => {
-                state.connectionError = true;
-                state.leaderboardStatus = 'input';
-                state.canRestart = false;
-            });
-        } else {
-            setTimeout(() => {
-                state.canRestart = true;
-            }, 1000);
+            }).catch(() => {});
         }
 
         return;

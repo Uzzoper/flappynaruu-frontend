@@ -5,6 +5,21 @@ All notable changes to Flappy Naruu will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.3] - 2026-04-01
+
+### Added
+- Post-game overlay with "Jogar Novamente" and "Voltar ao Menu" buttons after leaderboard flow
+- Score display on post-game overlay
+
+### Changed
+- Background image replaced with new dark cage-themed pixel art
+- Leaderboard check runs asynchronously in background — post-game overlay appears immediately without waiting for server response
+- Removed 3s timeout from top score check to accommodate Render freetier cold starts
+
+### Security
+- Pinned axios to 1.13.2 to avoid compromised versions (1.14.1, 0.30.4)
+- Added npm override to force axios 1.13.2 across all transitive dependencies
+
 ## [0.0.2] - 2026-01-28
 
 ### Changed

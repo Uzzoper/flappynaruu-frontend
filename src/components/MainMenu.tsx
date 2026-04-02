@@ -126,7 +126,7 @@ const MainMenu = ({ onPlay }: MainMenuProps) => {
                 </Card>
 
                 <div className="text-[#8b8b9a] text-lg italic text-center w-[90%] max-w-[300px] mt-8 mb-8">
-                    V 0.0.2
+                    V 0.0.3
                 </div>
 
                 <div className="text-[#8b8b9a] text-sm md:text-base lg:text-lg italic text-center mt-8 z-10">

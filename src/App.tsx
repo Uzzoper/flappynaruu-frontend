@@ -16,7 +16,7 @@ function App() {
   }
   return (
     <div>
-      <GameCanvas />
+      <GameCanvas onBackToMenu={() => setGameStarted(false)} />
       <Analytics />
     </div>
   );
