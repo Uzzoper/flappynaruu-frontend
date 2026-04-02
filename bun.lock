@@ -6,7 +6,7 @@
       "name": "flappynaruu-frontend",
       "dependencies": {
         "@vercel/analytics": "^1.6.1",
-        "axios": "^1.13.2",
+        "axios": "1.13.2",
         "pixel-retroui": "^2.1.0",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
@@ -34,6 +34,7 @@
     },
   },
   "overrides": {
+    "axios": "1.13.2",
     "vite": "npm:rolldown-vite@7.2.5",
   },
   "packages": {
