@@ -19,6 +19,7 @@ export function createInitialState(
             hitboxHeight: 24,
         },
         pipes: [],
+        broccolis: [],
         frames: 0,
         isGameOver: false,
         score: 0,
@@ -29,5 +30,11 @@ export function createInitialState(
         leaderboardStatus: 'idle',
         connectionError: false,
         tutorialState: 'start',
+        aura: 0,
+        shieldActive: false,
+        ignoredPipe: null,
+        activeHint: null,
+        hintTimer: 0,
+        broccoliHintShown: false,
     };
 }
