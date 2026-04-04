@@ -28,12 +28,12 @@ export function drawHUD(ctx: CanvasRenderingContext2D, score: number, highScore:
     if (aura > 0) {
         ctx.textAlign = "right";
         ctx.font = `20px ${FONT_STACK}`;
-        
+
         let auraText = "";
         for (let i = 0; i < AURA_REQUIRED; i++) {
             auraText += i < aura ? "🥦" : "⬜";
         }
-        
+
         ctx.fillText(auraText, canvasWidth - 20, 35);
     }
 }
@@ -79,7 +79,7 @@ export function drawHint(ctx: CanvasRenderingContext2D, hint: string | null) {
     lines.push(line);
 
     const lineCount = lines.length;
-    const startY = canvasHeight - 40 - (lineCount - 1) * lineHeight;
+    const startY = canvasHeight - 80 - (lineCount - 1) * lineHeight;
 
     lines.forEach((l, i) => {
         ctx.fillText(l, canvasWidth / 2, startY + (i * lineHeight));

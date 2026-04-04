@@ -29,12 +29,14 @@ export function GameCanvas({ onBackToMenu }: GameCanvasProps) {
     let isMounted = true;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const vv = window.visualViewport;
+      canvas.width = vv ? vv.width : window.innerWidth;
+      canvas.height = vv ? vv.height : window.innerHeight;
     }
 
     resize();
     window.addEventListener("resize", resize);
+    window.visualViewport?.addEventListener("resize", resize);
 
     const init = async () => {
       const result = await startGame(canvas, (state: GameState) => {
@@ -65,6 +67,7 @@ export function GameCanvas({ onBackToMenu }: GameCanvasProps) {
     return () => {
       isMounted = false;
       window.removeEventListener("resize", resize);
+      window.visualViewport?.removeEventListener("resize", resize);
 
       if (stopGameRef.current) stopGameRef.current();
     };
