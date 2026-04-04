@@ -11,31 +11,35 @@ export function applyJump(bird: Bird, jumpForce: number) {
     bird.velocity = jumpForce;
 }
 
-export function checkCollision(
+export function checkBoundaryCollision(
     bird: Bird,
-    pipes: Pipe[],
     canvas: HTMLCanvasElement
 ): boolean {
+    const birdTop = bird.y + bird.hitboxOffsetY;
+    const birdBottom = birdTop + bird.hitboxHeight;
 
+    return birdBottom >= canvas.height || birdTop <= 0;
+}
+
+export function checkPipeCollision(
+    bird: Bird,
+    pipes: Pipe[],
+): Pipe | null {
     const birdLeft = bird.x + bird.hitboxOffsetX;
     const birdRight = birdLeft + bird.hitboxWidth;
     const birdTop = bird.y + bird.hitboxOffsetY;
     const birdBottom = birdTop + bird.hitboxHeight;
 
-    if (birdBottom >= canvas.height || birdTop <= 0) return true;
-
     for (const pipe of pipes) {
-
         const overlapX = birdRight > pipe.x && birdLeft < pipe.x + pipe.width;
 
         if (overlapX) {
-
             const hitTop = birdTop < pipe.gapTop;
             const hitBottom = birdBottom > pipe.gapBottom;
 
-            if (hitTop || hitBottom) return true;
+            if (hitTop || hitBottom) return pipe;
         }
     }
 
-    return false;
+    return null;
 }
