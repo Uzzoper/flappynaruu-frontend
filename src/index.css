@@ -26,9 +26,20 @@ canvas {
 }
 
 .bg-gradient-animated {
-    background: linear-gradient(-45deg, #0d0d14, #1a1025, #3a1c5e, #0d0d14);
-    background-size: 400% 400%;
-    animation: gradientMovement 10s ease infinite;
+    background-color: #0d0d14;
+    background-image:
+        linear-gradient(rgba(235, 140, 50, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(235, 140, 50, 0.03) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 30%, rgba(235, 140, 50, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(58, 28, 94, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(235, 140, 50, 0.08) 0%, transparent 50%);
+    background-size:
+        24px 24px,
+        24px 24px,
+        100% 100%,
+        100% 100%,
+        100% 100%;
+    animation: gridShift 20s linear infinite;
 }
 
 .bg-radial-glow {
@@ -103,18 +114,9 @@ canvas {
     font-style: normal !important;
 }
 
-@keyframes gradientMovement {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+@keyframes gridShift {
+    0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+    100% { background-position: 24px 24px, 24px 24px, 0 0, 0 0, 0 0; }
 }
 
 @keyframes energyPulse {
