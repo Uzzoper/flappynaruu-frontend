@@ -5,6 +5,16 @@ All notable changes to Flappy Naruu will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.5] - 2026-04-05
+
+### Changed
+- Game loop now uses delta time for frame-rate independent physics — consistent gameplay across 30/60/120/144Hz displays
+- Background rendering cached via offscreen canvas for improved rendering performance
+- Pipe gradients cached and reused instead of recreated every frame
+- Spawn timers converted from frame-based to time-based for consistency
+- Hint timer now uses real seconds instead of frame counts
+- Reset game clock on restart to prevent physics jump after game over
+
 ## [0.0.4] - 2026-04-04
 
 ### Added

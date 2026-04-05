@@ -4,6 +4,7 @@ import { LeaderboardOverlay } from "./LeaderboardOverlay";
 import { Button, Card } from "pixel-retroui";
 import "./GameCanvas.css";
 import type { GameState } from "../game/state/GameState";
+import { resizeBackground } from "../game/render/BackgroundRenderer";
 
 interface GameCanvasProps {
   onBackToMenu?: () => void;
@@ -32,6 +33,7 @@ export function GameCanvas({ onBackToMenu }: GameCanvasProps) {
       const vv = window.visualViewport;
       canvas.width = vv ? vv.width : window.innerWidth;
       canvas.height = vv ? vv.height : window.innerHeight;
+      resizeBackground(canvas.width, canvas.height);
     }
 
     resize();

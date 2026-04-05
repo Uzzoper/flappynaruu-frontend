@@ -86,10 +86,11 @@ export function createBroccoli(
 
 export function updateBroccolis(
     broccolis: Broccoli[],
-    speed: number
+    speed: number,
+    dt: number
 ): Broccoli[] {
     for (const broccoli of broccolis) {
-        broccoli.x -= speed;
+        broccoli.x -= speed * dt;
     }
 
     return broccolis.filter(b => b.x + b.width > 0 && !b.isCollected);

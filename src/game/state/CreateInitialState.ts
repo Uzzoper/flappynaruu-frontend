@@ -20,7 +20,9 @@ export function createInitialState(
         },
         pipes: [],
         broccolis: [],
-        frames: 0,
+        elapsedTime: 0,
+        pipeSpawnTimer: 0,
+        broccoliSpawnTimer: 0,
         isGameOver: false,
         score: 0,
         canRestart: false,
@@ -34,7 +36,7 @@ export function createInitialState(
         shieldActive: false,
         ignoredPipe: null,
         activeHint: null,
-        hintTimer: 0,
+        hintTimerRemaining: 0,
         broccoliHintShown: false,
     };
 }

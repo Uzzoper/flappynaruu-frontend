@@ -11,6 +11,8 @@ import { createBroccoli, updateBroccolis, checkBroccoliCollision } from "./Brocc
 import {
     BROCCOLI_SPAWN_INTERVAL,
     AURA_REQUIRED,
+    PIPE_SPAWN_INTERVAL,
+    HINT_DURATION_SECONDS,
 } from "../config/Constants";
 
 function handleGameOver(state: GameState) {
@@ -41,14 +43,15 @@ function handleGameOver(state: GameState) {
 
 export function updateGame(
     state: GameState,
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    dt: number
 ) {
     if (state.isGameOver) return;
 
     if (state.tutorialState === 'start') {
-        state.frames++;
-        updateBirdAnimation(state.bird);
-        state.bird.y += Math.sin(state.frames * 0.1) * 1.5;
+        state.elapsedTime += dt;
+        updateBirdAnimation(state.bird, dt);
+        state.bird.y += Math.sin(state.elapsedTime * 0.1) * 1.5;
         return;
     }
 
@@ -56,21 +59,25 @@ export function updateGame(
         state.tutorialState = 'none';
     }
 
-    state.frames++;
+    state.elapsedTime += dt;
 
-    applyGravity(state.bird);
+    applyGravity(state.bird, dt);
 
-    updateBirdAnimation(state.bird);
+    updateBirdAnimation(state.bird, dt);
 
     const difficulty = getDifficulty(state.score);
 
-    state.pipes = updatePipes(state.pipes, difficulty.pipeSpeed);
+    state.pipes = updatePipes(state.pipes, difficulty.pipeSpeed, dt);
 
-    if (state.frames % 120 === 0) {
+    state.pipeSpawnTimer += dt;
+    if (state.pipeSpawnTimer >= PIPE_SPAWN_INTERVAL) {
+        state.pipeSpawnTimer = 0;
         state.pipes.push(createPipe(canvas.height, canvas.width, difficulty.gapSize));
     }
 
-    if (state.frames % BROCCOLI_SPAWN_INTERVAL === 0) {
+    state.broccoliSpawnTimer += dt;
+    if (state.broccoliSpawnTimer >= BROCCOLI_SPAWN_INTERVAL) {
+        state.broccoliSpawnTimer = 0;
         const broccoli = createBroccoli(canvas.height, canvas.width, state.pipes);
         if (broccoli) {
             state.broccolis.push(broccoli);
@@ -80,10 +87,10 @@ export function updateGame(
     if (state.broccolis.length > 0 && !state.broccoliHintShown) {
         state.broccoliHintShown = true;
         state.activeHint = "Colete brócolis para farmar aura!";
-        state.hintTimer = 300;
+        state.hintTimerRemaining = HINT_DURATION_SECONDS;
     }
 
-    state.broccolis = updateBroccolis(state.broccolis, difficulty.pipeSpeed);
+    state.broccolis = updateBroccolis(state.broccolis, difficulty.pipeSpeed, dt);
 
     const collectedBroccolis = checkBroccoliCollision(state.bird, state.broccolis);
     if (collectedBroccolis.length > 0) {
@@ -93,7 +100,7 @@ export function updateGame(
             state.aura = 0;
             state.shieldActive = true;
             state.activeHint = "Você farmou aura! A aura de Naruu o protege contra 1 colisão com barras";
-            state.hintTimer = 300;
+            state.hintTimerRemaining = HINT_DURATION_SECONDS;
         }
     }
 
@@ -118,9 +125,9 @@ export function updateGame(
         state.ignoredPipe = null;
     }
 
-    if (state.hintTimer > 0) {
-        state.hintTimer--;
-        if (state.hintTimer <= 0) {
+    if (state.hintTimerRemaining > 0) {
+        state.hintTimerRemaining -= dt / 60;
+        if (state.hintTimerRemaining <= 0) {
             state.activeHint = null;
         }
     }

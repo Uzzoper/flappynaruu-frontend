@@ -19,10 +19,11 @@ export function createPipe(
 
 export function updatePipes(
     pipes: Pipe[],
-    speed: number
+    speed: number,
+    dt: number
 ) {
     for (const pipe of pipes) {
-        pipe.x -= speed;
+        pipe.x -= speed * dt;
     }
 
     return pipes.filter(pipe => pipe.x + pipe.width > 0)

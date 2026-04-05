@@ -6,7 +6,9 @@ export interface GameState {
     bird: Bird;
     pipes: Pipe[];
     broccolis: Broccoli[];
-    frames: number;
+    elapsedTime: number;
+    pipeSpawnTimer: number;
+    broccoliSpawnTimer: number;
     isGameOver: boolean;
     score: number;
     canRestart: boolean;
@@ -20,6 +22,6 @@ export interface GameState {
     shieldActive: boolean;
     ignoredPipe: Pipe | null;
     activeHint: string | null;
-    hintTimer: number;
+    hintTimerRemaining: number;
     broccoliHintShown: boolean;
 }
