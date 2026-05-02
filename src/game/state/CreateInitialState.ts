@@ -1,9 +1,19 @@
 import type { GameState } from "./GameState";
 import { loadHighScore } from "./HighScore";
+import { createInitialPipes } from "../systems/PipeSystem";
+import { getDifficulty } from "../systems/DifficultySystem";
 
 export function createInitialState(
     canvas: HTMLCanvasElement
 ): GameState {
+    const difficulty = getDifficulty(0);
+
+    const initialPipes = createInitialPipes(canvas.height, canvas.width, difficulty.gapSize, difficulty.pipeSpeed);
+    const lastPipe = initialPipes[initialPipes.length - 1];
+    const initialSpawnTimer = lastPipe
+        ? (canvas.width - lastPipe.x) / difficulty.pipeSpeed
+        : 0;
+
     return {
         bird: {
             x: 50,
@@ -18,10 +28,10 @@ export function createInitialState(
             hitboxWidth: 26,
             hitboxHeight: 24,
         },
-        pipes: [],
+        pipes: initialPipes,
         broccolis: [],
         elapsedTime: 0,
-        pipeSpawnTimer: 0,
+        pipeSpawnTimer: initialSpawnTimer,
         broccoliSpawnTimer: 0,
         isGameOver: false,
         score: 0,
