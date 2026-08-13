@@ -2,11 +2,11 @@ import type { GameState } from "../state/GameState";
 import { applyGravity, checkBoundaryCollision, checkPipeCollision } from "./Physics";
 import { getDifficulty } from "./DifficultySystem";
 import { createPipe, updatePipes } from "./PipeSystem";
+import { getTop5Scores } from "../../api/LeaderboardApi";
 import { playGameOverSound, playHighScoreSound } from "./AudioSystem";
 import { saveHighScore } from "../state/HighScore";
 import { updateScore } from "./ScoreSystem";
 import { updateBirdAnimation } from "./BirdSystem";
-import { checkIfTopScore } from "../services/LeaderboardService";
 import { createBroccoli, updateBroccolis, checkBroccoliCollision } from "./BroccoliSystem";
 import {
     BROCCOLI_SPAWN_INTERVAL,
@@ -14,6 +14,16 @@ import {
     PIPE_SPAWN_INTERVAL,
     HINT_DURATION_SECONDS,
 } from "../config/Constants";
+
+async function checkIfTopScore(score: number): Promise<boolean> {
+    const top5 = await getTop5Scores();
+
+    if (top5.length < 5) return score > 0;
+
+    const lowestTopScore = Math.min(...top5.map(entry => entry.score));
+
+    return score > lowestTopScore;
+}
 
 function handleGameOver(state: GameState) {
     state.isGameOver = true;
@@ -26,19 +36,21 @@ function handleGameOver(state: GameState) {
     }
 
     state.leaderboardStatus = 'postgame';
-    setTimeout(() => {
-        state.canRestart = true;
-    }, 1000);
 
     if (state.score > 0) {
         checkIfTopScore(state.score).then(isTop => {
             if (isTop) {
-                state.isTopScore = true;
                 state.leaderboardStatus = 'input';
                 state.canRestart = false;
             }
-        }).catch(() => {});
+        }).catch(() => {
+            state.leaderboardStatus = 'postgame';
+        });
     }
+
+    setTimeout(() => {
+        state.canRestart = true;
+    }, 1000);
 }
 
 export function updateGame(
@@ -61,11 +73,11 @@ export function updateGame(
 
     state.elapsedTime += dt;
 
+    const difficulty = getDifficulty(state.score);
+
     applyGravity(state.bird, dt);
 
     updateBirdAnimation(state.bird, dt);
-
-    const difficulty = getDifficulty(state.score);
 
     state.pipes = updatePipes(state.pipes, difficulty.pipeSpeed, dt);
 
