@@ -30,7 +30,7 @@ export function renderGame(ctx: CanvasRenderingContext2D, state: GameState, canv
 
     drawHint(ctx, state.activeHint);
 
-    if (state.isGameOver) {
+    if (state.isGameOver && state.leaderboardStatus === 'checking') {
         drawGameOver(ctx, canvas, state.canRestart);
     } else if (state.tutorialState !== 'none') {
         drawTutorial(ctx, canvas, state.tutorialState);

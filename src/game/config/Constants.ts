@@ -6,3 +6,4 @@ export const AURA_REQUIRED = 3;
 export const MAX_DELTA_TIME = 3;
 export const PIPE_SPAWN_INTERVAL = 120;
 export const HINT_DURATION_SECONDS = 5;
+export const LEADERBOARD_CHECK_TIMEOUT_MS = 5000;

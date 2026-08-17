@@ -13,6 +13,7 @@ import {
     AURA_REQUIRED,
     PIPE_SPAWN_INTERVAL,
     HINT_DURATION_SECONDS,
+    LEADERBOARD_CHECK_TIMEOUT_MS,
 } from "../config/Constants";
 
 async function checkIfTopScore(score: number): Promise<boolean> {
@@ -35,17 +36,27 @@ function handleGameOver(state: GameState) {
         saveHighScore(state.score);
     }
 
-    state.leaderboardStatus = 'postgame';
+    state.leaderboardStatus = 'checking';
 
     if (state.score > 0) {
-        checkIfTopScore(state.score).then(isTop => {
-            if (isTop) {
-                state.leaderboardStatus = 'input';
-                state.canRestart = false;
-            }
-        }).catch(() => {
-            state.leaderboardStatus = 'postgame';
+        const checkTimeout = new Promise<never>((_, reject) => {
+            setTimeout(() => reject(new Error('Leaderboard check timed out')), LEADERBOARD_CHECK_TIMEOUT_MS);
         });
+
+        Promise.race([checkIfTopScore(state.score), checkTimeout])
+            .then(isTop => {
+                if (isTop) {
+                    state.leaderboardStatus = 'input';
+                    state.canRestart = false;
+                } else {
+                    state.leaderboardStatus = 'postgame';
+                }
+            })
+            .catch(() => {
+                state.leaderboardStatus = 'postgame';
+            });
+    } else {
+        state.leaderboardStatus = 'postgame';
     }
 
     setTimeout(() => {
